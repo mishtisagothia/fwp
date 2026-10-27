@@ -1,63 +1,541 @@
-'''
+<!DOCTYPE html>
+<html lang="en">
 
-                            Online Python Compiler.
-                Code, Compile, Run and Debug python program online.
-Write your code in this editor and press "Run" button to execute it.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f4f6f9;
+        }
 
-'''
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-def student_record_manager():
-    Subjects = ("python", "dbms", "networks")
+        table {
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            background: white;
+        }
 
-    students = [
-        {"roll no": "101", "name": "abc", "marks": 88},
-        {"roll no": "102", "name": "asd", "marks": 92},
-        {"roll no": "103", "name": "mno", "marks": 98}
-    ]
+        td {
+            padding: 8px;
+            text-align: center;
+        }
 
-    while True:
-        print("\n1. Add Student")
-        print("2. Update Student")
-        print("3. Display Students")
-        print("4. Exit")
+        th {
+            padding: 8px;
+            background: #919191;
+            color: white;
+        }
 
-        choice = int(input("Enter your choice: "))
+        input[type="number"],
+        input[type="text"] {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-        if choice == 1:
-            roll = input("Enter roll no: ")
-            name = input("Enter name: ")
-            marks = int(input("Enter marks: "))
+        .submit-btn {
+            padding: 7px 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
 
-            students.append({
-                "roll no": roll,
-                "name": name,
-                "marks": marks
-            })
+<body>
+    <div class="container">
+        <h2>Employee Details</h2>
 
-            print("Student added successfully!")
+        <label for="empId">Employee ID:</label>
+        <input type="text" id="empId" name="empId" placeholder="Enter employee ID">
+        <br><br>
 
-        elif choice == 2:
-            roll = input("Enter roll no to update: ")
+        <label for="empName">Employee Name:</label>
+        <input type="text" id="empName" name="empName" placeholder="Enter employee name">
+        <br><br>
 
-            for student in students:
-                if student["roll no"] == roll:
-                    student["name"] = input("Enter new name: ")
-                    student["marks"] = int(input("Enter new marks: "))
-                    print("Student updated successfully!")
-                    break
-            else:
-                print("Student not found!")
+        <label for="empSalary">Employee Salary :</label>
+        <input type="number" id="empSalary" name="empSalary" placeholder="Enter employee salary">
+        <br><br>
+    </div>
+    <table>
+        <tr>
+            <th>Month</th>
+            <th>Leave</th>
+            <th>Paid</th>
+            <th>Un-Paid</th>
+            <th>Rem</th>
+            <th>Salary</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>Jan</td>
+            <td><input type="number" id="janLeave" onchange="jan()"></td>
+            <td><input type="number" id="janPaid" readonly></td>
+            <td><input type="number" id="janUnPaid" readonly></td>
+            <td><input type="number" id="janRemain" readonly></td>
+            <td><input type="number" id="janSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('jan')"></td>
+        </tr>
+        <tr>
+            <td>Feb</td>
+            <td><input type="number" id="febLeave" onchange="feb()"></td>
+            <td><input type="number" id="febPaid" readonly></td>
+            <td><input type="number" id="febUnPaid" readonly></td>
+            <td><input type="number" id="febRemain" readonly></td>
+            <td><input type="number" id="febSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('feb')"></td>
+        </tr>
+        <tr>
+            <td>March</td>
+            <td><input type="number" id="marchLeave" onchange="march()"></td>
+            <td><input type="number" id="marchPaid" readonly></td>
+            <td><input type="number" id="marchUnPaid" readonly></td>
+            <td><input type="number" id="marchRemain" readonly></td>
+            <td><input type="number" id="marchSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('march')"></td>
+        </tr>
+        <tr>
+            <td>April</td>
+            <td><input type="number" id="aprilLeave" onchange="april()"></td>
+            <td><input type="number" id="aprilPaid" readonly></td>
+            <td><input type="number" id="aprilUnPaid" readonly></td>
+            <td><input type="number" id="aprilRemain" readonly></td>
+            <td><input type="number" id="aprilSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('april')"></td>
+        </tr>
+        <tr>
+            <td>May</td>
+            <td><input type="number" id="mayLeave" onchange="may()"></td>
+            <td><input type="number" id="mayPaid" readonly></td>
+            <td><input type="number" id="mayUnPaid" readonly></td>
+            <td><input type="number" id="mayRemain" readonly></td>
+            <td><input type="number" id="maySalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('may')"></td>
+        </tr>
+        <tr>
+            <td>June</td>
+            <td><input type="number" id="juneLeave" onchange="june()"></td>
+            <td><input type="number" id="junePaid" readonly></td>
+            <td><input type="number" id="juneUnPaid" readonly></td>
+            <td><input type="number" id="juneRemain" readonly></td>
+            <td><input type="number" id="juneSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('june')"></td>
+        </tr>
+        <tr>
+            <td>July</td>
+            <td><input type="number" id="julyLeave" onchange="july()"></td>
+            <td><input type="number" id="julyPaid" readonly></td>
+            <td><input type="number" id="julyUnPaid" readonly></td>
+            <td><input type="number" id="julyRemain" readonly></td>
+            <td><input type="number" id="julySalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('july')"></td>
+        </tr>
+        <tr>
+            <td>Aug</td>
+            <td><input type="number" id="augLeave" onchange="aug()"></td>
+            <td><input type="number" id="augPaid" readonly></td>
+            <td><input type="number" id="augUnPaid" readonly></td>
+            <td><input type="number" id="augRemain" readonly></td>
+            <td><input type="number" id="augSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('aug')"></td>
+        </tr>
+        <tr>
+            <td>Sep</td>
+            <td><input type="number" id="sepLeave" onchange="sep()"></td>
+            <td><input type="number" id="sepPaid" readonly></td>
+            <td><input type="number" id="sepUnPaid" readonly></td>
+            <td><input type="number" id="sepRemain" readonly></td>
+            <td><input type="number" id="sepSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('sep')"></td>
+        </tr>
+        <tr>
+            <td>Oct</td>
+            <td><input type="number" id="octLeave" onchange="oct()"></td>
+            <td><input type="number" id="octPaid" readonly></td>
+            <td><input type="number" id="octUnPaid" readonly></td>
+            <td><input type="number" id="octRemain" readonly></td>
+            <td><input type="number" id="octSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('oct')"></td>
+        </tr>
+        <tr>
+            <td>Nov</td>
+            <td><input type="number" id="novLeave" onchange="nov()"></td>
+            <td><input type="number" id="novPaid" readonly></td>
+            <td><input type="number" id="novUnPaid" readonly></td>
+            <td><input type="number" id="novRemain" readonly></td>
+            <td><input type="number" id="novSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('nov')"></td>
+        </tr>
+        <tr>
+            <td>Dec</td>
+            <td><input type="number" id="decLeave" onchange="dec()"></td>
+            <td><input type="number" id="decPaid" readonly></td>
+            <td><input type="number" id="decUnPaid" readonly></td>
+            <td><input type="number" id="decRemain" readonly></td>
+            <td><input type="number" id="decSalary" readonly></td>
+            <td><input type="submit" class="submit-btn" value="Submit" onclick="add('dec')"></td>
+        </tr>
+    </table>
 
-        elif choice == 3:
-            for student in students:
-                print(student)
+    <script>
+        var cl;
+        function jan() {
+            var totalPaidLeave = 12;
+            var janLeave = document.getElementById("janLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (janLeave >= 3) {
+                var janPaid = 3;
+            } else {
+                var janPaid = janLeave
+            }
+            var janRemain = totalPaidLeave - janPaid;
+            var janUnPaid = janLeave - janPaid;
 
-        elif choice == 4:
-            print("Exiting program...")
-            break
+            perDaySalary = empSalary / 31;
+            salary = empSalary - (perDaySalary * janUnPaid);
 
-        else:
-            print("Invalid choice!")
+            document.getElementById("janPaid").value = janPaid;
+            document.getElementById("janUnPaid").value = janUnPaid;
+            document.getElementById("janRemain").value = janRemain;
+            document.getElementById("janSalary").value = salary.toFixed(2);
+            cl = janRemain;
+        }
+
+        function feb() {
+            var febLeave = document.getElementById("febLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (febLeave >= 3) {
+                var febPaid = 3
+            } else {
+                var febPaid = febLeave
+            }
+
+            var febRemain = cl - febPaid;
+            var febUnPaid = febLeave - febPaid;
+            cl = febRemain;
+
+            febSalary = empSalary - (empSalary / 28) * febUnPaid;
+            document.getElementById("febSalary").value = febSalary.toFixed(2);
+
+            document.getElementById("febPaid").value = febPaid;
+            document.getElementById("febUnPaid").value = febUnPaid;
+            document.getElementById("febRemain").value = febRemain;
+        }
+
+        function march() {
+            var empSalary = document.getElementById("empSalary").value;
+            var marchLeave = document.getElementById("marchLeave").value;
+            if (marchLeave >= 3) {
+                var marchPaid = 3
+            } else {
+                var marchPaid = marchLeave;
+            }
+            var marchRemain = cl - marchPaid;
+            var marchUnPaid = marchLeave - marchPaid;
+            cl = marchRemain;
+
+            marchSalary = empSalary - (empSalary / 31) * marchUnPaid;
+            document.getElementById("marchSalary").value = marchSalary.toFixed(2);
+            document.getElementById("marchPaid").value = marchPaid;
+            document.getElementById("marchUnPaid").value = marchUnPaid;
+            document.getElementById("marchRemain").value = marchRemain;
+        }
+
+        function april() {
+            var aprilLeave = document.getElementById("aprilLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (aprilLeave >= 3) {
+                var aprilPaid = 3;
+            } else {
+                var aprilPaid = aprilLeave;
+            }
+            var aprilRemain = cl - aprilPaid;
+            var aprilUnPaid = aprilLeave - aprilPaid;
+            cl = aprilRemain;
+
+            aprilSalary = empSalary - (empSalary / 30) * aprilUnPaid;
+            document.getElementById("aprilSalary").value = aprilSalary.toFixed(2);
+
+            document.getElementById("aprilPaid").value = aprilPaid;
+            document.getElementById("aprilUnPaid").value = aprilUnPaid;
+            document.getElementById("aprilRemain").value = aprilRemain;
+        }
+
+        function may() {
+            var mayLeave = document.getElementById("mayLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var mayUnPaid = mayLeave;
+                document.getElementById("mayPaid").value = 0;
+                document.getElementById("mayUnPaid").value = mayUnPaid;
+                document.getElementById("mayRemain").value = 0;
+                return;
+            }
+            if (mayLeave >= 3) {
+                var mayPaid = 3;
+            } else {
+                var mayPaid = mayLeave;
+            }
+            if (mayPaid > cl) {
+                mayPaid = cl;
+            }
+            var mayRemain = cl - mayPaid;
+            var mayUnPaid = mayLeave - mayPaid;
+            cl = mayRemain;
 
 
-student_record_manager()
+            maySalary = empSalary - (empSalary / 31) * mayUnPaid;
+            document.getElementById("maySalary").value = maySalary.toFixed(2);
+
+            document.getElementById("mayPaid").value = mayPaid;
+            document.getElementById("mayUnPaid").value = mayUnPaid;
+            document.getElementById("mayRemain").value = mayRemain;
+        }
+
+        function june() {
+            var juneLeave = document.getElementById("juneLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var juneUnPaid = juneLeave;
+                document.getElementById("junePaid").value = 0;
+                document.getElementById("juneUnPaid").value = juneUnPaid;
+                document.getElementById("juneRemain").value = 0;
+                return;
+            }
+            if (juneLeave >= 3) {
+                var junePaid = 3;
+            } else {
+                var junePaid = juneLeave;
+            }
+            if (junePaid > cl) {
+                junePaid = cl;
+            }
+            var juneRemain = cl - junePaid;
+            var juneUnPaid = juneLeave - junePaid;
+            cl = juneRemain;
+
+            juneSalary = empSalary - (empSalary / 30) * juneUnPaid;
+            document.getElementById("juneSalary").value = juneSalary.toFixed(2);
+
+            document.getElementById("junePaid").value = junePaid;
+            document.getElementById("juneUnPaid").value = juneUnPaid;
+            document.getElementById("juneRemain").value = juneRemain;
+        }
+
+        function july() {
+            var julyLeave = document.getElementById("julyLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var julyUnPaid = julyLeave;
+                document.getElementById("julyPaid").value = 0;
+                document.getElementById("julyUnPaid").value = julyUnPaid;
+                document.getElementById("julyRemain").value = 0;
+                return;
+            }
+            if (julyLeave >= 3) {
+                var julyPaid = 3;
+            } else {
+                var julyPaid = julyLeave;
+            }
+            if (julyPaid > cl) {
+                julyPaid = cl;
+            }
+
+            var julyRemain = cl - julyPaid;
+            var julyUnPaid = julyLeave - julyPaid;
+            cl = julyRemain;
+
+            julySalary = empSalary - (empSalary / 31) * julyUnPaid;
+            document.getElementById("julySalary").value = julySalary.toFixed(2);
+
+            document.getElementById("julyPaid").value = julyPaid;
+            document.getElementById("julyUnPaid").value = julyUnPaid;
+            document.getElementById("julyRemain").value = julyRemain;
+        }
+
+        function aug() {
+            var augLeave = document.getElementById("augLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var augUnPaid = augLeave;
+                document.getElementById("augPaid").value = 0;
+                document.getElementById("augUnPaid").value = augUnPaid;
+                document.getElementById("augRemain").value = 0;
+                return;
+            }
+            if (augLeave >= 3) {
+                var augPaid = 3
+            } else {
+                var augPaid = augLeave
+            }
+            if (augPaid > cl) {
+                augPaid = cl;
+            }
+
+            var augRemain = cl - augPaid;
+            var augUnPaid = augLeave - augPaid;
+            cl = augRemain;
+
+            augSalary = empSalary - (empSalary / 31) * augUnPaid;
+            document.getElementById("augSalary").value = augSalary.toFixed(2);
+
+            document.getElementById("augPaid").value = augPaid;
+            document.getElementById("augUnPaid").value = augUnPaid;
+            document.getElementById("augRemain").value = augRemain;
+        }
+
+        function sep() {
+            var sepLeave = document.getElementById("sepLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var sepUnPaid = sepLeave;
+                document.getElementById("sepPaid").value = 0;
+                document.getElementById("sepUnPaid").value = sepUnPaid;
+                document.getElementById("sepRemain").value = 0;
+                return;
+            }
+            if (sepLeave >= 3) {
+                var sepPaid = 3;
+            } else {
+                var sepPaid = sepLeave;
+            }
+            if (sepPaid > cl) {
+                sepPaid = cl;
+            }
+            var sepRemain = cl - sepPaid;
+            var sepUnPaid = sepLeave - sepPaid;
+            cl = sepRemain;
+
+            sepSalary = empSalary - (empSalary / 30) * sepUnPaid;
+            document.getElementById("sepSalary").value = sepSalary.toFixed(2);
+
+            document.getElementById("sepPaid").value = sepPaid;
+            document.getElementById("sepUnPaid").value = sepUnPaid;
+            document.getElementById("sepRemain").value = sepRemain;
+        }
+
+        function oct() {
+            var octLeave = document.getElementById("octLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var octUnPaid = octLeave;
+                document.getElementById("octPaid").value = 0;
+                document.getElementById("octUnPaid").value = octUnPaid;
+                document.getElementById("octRemain").value = 0;
+                return;
+            }
+            if (octLeave >= 3) {
+                var octPaid = 3;
+            } else {
+                var octPaid = octLeave;
+            }
+            if (octPaid > cl) {
+                octPaid = cl;
+            }
+
+            var octRemain = cl - octPaid;
+            var octUnPaid = octLeave - octPaid;
+            cl = octRemain;
+
+            octSalary = empSalary - (empSalary / 31) * octUnPaid;
+            document.getElementById("octSalary").value = octSalary.toFixed(2);
+
+            document.getElementById("octPaid").value = octPaid;
+            document.getElementById("octUnPaid").value = octUnPaid;
+            document.getElementById("octRemain").value = octRemain;
+        }
+
+        function nov() {
+            var novLeave = document.getElementById("novLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var novUnPaid = novLeave;
+                document.getElementById("novPaid").value = 0;
+                document.getElementById("novUnPaid").value = novUnPaid;
+                document.getElementById("novRemain").value = 0;
+                return;
+            }
+            if (novLeave >= 3) {
+                var novPaid = 3;
+            } else {
+                var novPaid = novLeave;
+            }
+            if (novPaid > cl) {
+                novPaid = cl;
+            }
+
+            var novRemain = cl - novPaid;
+            var novUnPaid = novLeave - novPaid;
+            cl = novRemain;
+
+            novSalary = empSalary - (empSalary / 30) * novUnPaid;
+            document.getElementById("novSalary").value = novSalary.toFixed(2);
+
+            document.getElementById("novPaid").value = novPaid;
+            document.getElementById("novUnPaid").value = novUnPaid;
+            document.getElementById("novRemain").value = novRemain;
+        }
+
+        function dec() {
+            var decLeave = document.getElementById("decLeave").value;
+            var empSalary = document.getElementById("empSalary").value;
+            if (cl <= 0) {
+                var decUnPaid = decLeave;
+                document.getElementById("decPaid").value = 0;
+                document.getElementById("decUnPaid").value = decUnPaid;
+                document.getElementById("decRemain").value = 0;
+                return;
+            }
+            if (decLeave >= 3) {
+                var decPaid = 3;
+            } else {
+                var decPaid = decLeave;
+            }
+            if (decPaid > cl) {
+                decPaid = cl;
+            }
+
+            var decRemain = cl - decPaid;
+            var decUnPaid = decLeave - decPaid;
+            cl = decRemain;
+
+            decSalary = empSalary - (empSalary / 31) * decUnPaid;
+            document.getElementById("decSalary").value = decSalary.toFixed(2);
+
+            document.getElementById("decPaid").value = decPaid;
+            document.getElementById("decUnPaid").value = decUnPaid;
+            document.getElementById("decRemain").value = decRemain;
+        }
+
+        function add(month) {
+            var empId = document.getElementById("empId").value;
+            var empName = document.getElementById("empName").value;
+            var empSalary = document.getElementById("empSalary").value;
+            var empMonthSalary = document.getElementById(month + "Salary").value;
+            var leave = document.getElementById(month + "Leave").value;
+            var paid = document.getElementById(month + "Paid").value;
+            var unpaid = document.getElementById(month + "UnPaid").value;
+            var remain = document.getElementById(month + "Remain").value;
+            window.location.href = "data.html?"+ empId + "|" + empName + "|" + empSalary + "|" + empMonthSalary + "|" + month + "|" + leave + "|" + paid + "|" + unpaid + "|" + remain;
+        }
+    </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"423373f7cebd474eb047f5ca6b3be1db","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+
+</html>
