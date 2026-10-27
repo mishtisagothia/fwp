@@ -1,0 +1,63 @@
+'''
+
+                            Online Python Compiler.
+                Code, Compile, Run and Debug python program online.
+Write your code in this editor and press "Run" button to execute it.
+
+'''
+
+def student_record_manager():
+    Subjects = ("python", "dbms", "networks")
+
+    students = [
+        {"roll no": "101", "name": "abc", "marks": 88},
+        {"roll no": "102", "name": "asd", "marks": 92},
+        {"roll no": "103", "name": "mno", "marks": 98}
+    ]
+
+    while True:
+        print("\n1. Add Student")
+        print("2. Update Student")
+        print("3. Display Students")
+        print("4. Exit")
+
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            roll = input("Enter roll no: ")
+            name = input("Enter name: ")
+            marks = int(input("Enter marks: "))
+
+            students.append({
+                "roll no": roll,
+                "name": name,
+                "marks": marks
+            })
+
+            print("Student added successfully!")
+
+        elif choice == 2:
+            roll = input("Enter roll no to update: ")
+
+            for student in students:
+                if student["roll no"] == roll:
+                    student["name"] = input("Enter new name: ")
+                    student["marks"] = int(input("Enter new marks: "))
+                    print("Student updated successfully!")
+                    break
+            else:
+                print("Student not found!")
+
+        elif choice == 3:
+            for student in students:
+                print(student)
+
+        elif choice == 4:
+            print("Exiting program...")
+            break
+
+        else:
+            print("Invalid choice!")
+
+
+student_record_manager()
